@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Voucher Digital Superindo 50K",
+    "denom": 50000,
+    "code": "55"
+  },
+  {
+    "title": "Voucher Digital Superindo 100K",
+    "denom": 100000,
+    "code": "66"
+  },
+  {
+    "title": "Voucher Digital Superindo 200K",
+    "denom": 200000,
+    "code": "77"
+  }
+]

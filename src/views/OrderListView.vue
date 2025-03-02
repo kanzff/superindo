@@ -10,6 +10,7 @@ import {
 } from "flowbite-vue";
 
 import orders from "../data/order_list.json";
+import { RouterLink } from "vue-router";
 
 // Reactive values for user input
 const tempOrderId = ref("");
@@ -85,6 +86,11 @@ const filteredOrders = computed(() => {
         </div>
       </div>
       <div class="bg-white p-4 rounded shadow-lg">
+        <div class="flex justify-end mb-4">
+          <RouterLink to="/create-order">
+            <button class="bg-blue-800 text-white px-4 py-2 rounded">Create Order</button>
+          </RouterLink>
+        </div>
         <fwb-table>
           <fwb-table-head class="bg-slate-200">
             <fwb-table-head-cell>Status</fwb-table-head-cell>

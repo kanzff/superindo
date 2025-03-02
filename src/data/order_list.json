@@ -3,25 +3,25 @@
     "order_id": "BLK01",
     "status": "Waiting for Payment",
     "order_date": "2025-03-01T14:30:00Z",
-    "total": 125000075
+    "total": 125000000
   },
   {
     "order_id": "BLK02",
     "status": "Payment Rejected",
     "order_date": "2025-03-02T09:15:00Z",
-    "total": 110008999
+    "total": 110000000
   },
   {
     "order_id": "BLK03",
     "status": "Done",
     "order_date": "2025-02-28T18:45:00Z",
-    "total": 231050050
+    "total": 231050000
   },
   {
     "order_id": "BLK04",
     "status": "Waiting for Payment",
     "order_date": "2025-03-03T21:00:00Z",
-    "total": 104999999
+    "total": 105000000
   },
   {
     "order_id": "BLK05",
@@ -33,18 +33,18 @@
     "order_id": "BLK06",
     "status": "Payment Rejected",
     "order_date": "2025-02-27T12:10:00Z",
-    "total": 107525025
+    "total": 107525000
   },
   {
     "order_id": "BLK07",
     "status": "Waiting for Payment",
     "order_date": "2025-03-01T16:40:00Z",
-    "total": 113460060
+    "total": 113460000
   },
   {
     "order_id": "BLK08",
     "status": "Done",
     "order_date": "2025-02-26T23:55:00Z",
-    "total": 199999999
+    "total": 200000000
   }
 ]
