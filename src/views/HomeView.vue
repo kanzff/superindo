@@ -1,16 +1,21 @@
 <script setup>
 import TheWelcome from '../components/TheWelcome.vue'
 import OrderListView from './OrderListView.vue';
-
+import logo from "../assets/superindo.png"
 </script>
 
 <template>
   <main>
     <div class="flex border rounded-lg min-h-[calc(100vh-4rem)]">
-      <div class="w-64 font-semibold p-4 ">
-        <p>Dashboard</p>
-        <p>Orders</p>
-        <p>Voucher Managers</p>
+      <div class="w-64 font-semibold">
+        <div class="w-full h-[200px] border-b border-slate-500 mb-8">
+          <img :src="logo">
+        </div>
+        <div class="p-4">
+          <p class="border-b border-slate-500 py-2">Dashboard</p>
+          <p class="border-b border-slate-500 py-2">Orders</p>
+          <p class="border-b border-slate-500 py-2">Voucher Managers</p>
+        </div>
       </div>
       <div class="w-full border-l ">
         <OrderListView/>

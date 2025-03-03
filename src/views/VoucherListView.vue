@@ -1,12 +1,8 @@
 <script setup>
 import { ref, computed } from "vue";
 import {
-  FwbTable,
-  FwbTableBody,
-  FwbTableCell,
-  FwbTableHead,
-  FwbTableHeadCell,
-  FwbTableRow,
+  FwbModal,
+  FwbButton,
 } from "flowbite-vue";
 
 import vouchersData from "../data/voucher_list.json";
@@ -36,10 +32,32 @@ const selectedVouchers = computed(() => {
 const totalPrice = computed(() => {
   return selectedVouchers.value.reduce((sum, voucher) => sum + (voucher.denom * voucher.quantity), 0);
 });
+
+const isShowModal = ref(false)
+
+function closeModal () {
+  isShowModal.value = false
+}
+function showModal () {
+  isShowModal.value = true
+}
+
 </script>
 
 <template>
   <div>
+    <fwb-modal v-if="isShowModal" @close="closeModal">
+      <template #body>
+        <div class="flex justify-center mb-4">
+          <p class="text-2xl font-semibold">Order Succesfully Created</p>
+        </div>
+      </template>
+      <template #footer>
+        <div class="flex justify-center">
+          <button class="bg-blue-800 text-white w-[280px] rounded py-4">Oke</button>
+        </div>
+      </template>
+    </fwb-modal>
     <div class="p-4 shadow-lg">
       <p class="text-2xl font-semibold">Create Orders</p>
     </div>
@@ -93,7 +111,7 @@ const totalPrice = computed(() => {
             <p class="font-semibold text-lg">Rp {{ formatNumber(totalPrice) }},-</p>
           </div>
           <div class="flex justify-center mt-12">
-            <button class="px-6 py-4 w-60 bg-blue-800 text-white rounded">Place Order</button>
+            <button  @click="showModal" class="px-6 py-4 w-60 bg-blue-800 text-white rounded">Place Order</button>
           </div>
         </div>
         <p v-else class="text-gray-500">No vouchers selected</p>
