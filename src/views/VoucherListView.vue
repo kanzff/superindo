@@ -7,6 +7,7 @@ import {
 
 import vouchersData from "../data/voucher_list.json";
 import { formatNumber } from "@/helper/formatHelper";
+import { RouterLink } from "vue-router";
 
 // Reactive state for vouchers with quantity
 const vouchers = ref(vouchersData.map(voucher => ({ ...voucher, quantity: 0 })));
@@ -42,6 +43,38 @@ function showModal () {
   isShowModal.value = true
 }
 
+const createNewOrder = () => {
+  // Load existing orders from localStorage
+  const savedOrders = localStorage.getItem("orders");
+  console.log('ini saved', savedOrders)
+  const orders = savedOrders ? JSON.parse(savedOrders) : [];
+  console.log('ini ord', orders)
+
+
+  // Get the last order ID and increment
+  const lastOrder = orders.length ? orders[orders.length - 1] : null;
+  const lastOrderId = lastOrder ? parseInt(lastOrder.order_id.replace("BLK0", "")) : 0;
+  const newOrderId = `BLK0${lastOrderId + 1}`;
+
+  // Create new order object
+  const newOrder = {
+    order_id: newOrderId,
+    status: "Waiting For Payment",
+    order_date: new Date(),
+    total: totalPrice.value, // Computed total price
+  };
+
+  // Add new order to the list
+  orders.push(newOrder);
+
+  // Save updated orders to LocalStorage
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  // Show confirmation modal
+  showModal();
+};
+
+
 </script>
 
 <template>
@@ -54,7 +87,9 @@ function showModal () {
       </template>
       <template #footer>
         <div class="flex justify-center">
-          <button class="bg-blue-800 text-white w-[280px] rounded py-4">Oke</button>
+          <RouterLink to="/">
+            <button class="bg-blue-800 text-white w-[280px] rounded py-4">Oke</button>
+          </RouterLink>
         </div>
       </template>
     </fwb-modal>
@@ -111,7 +146,7 @@ function showModal () {
             <p class="font-semibold text-lg">Rp {{ formatNumber(totalPrice) }},-</p>
           </div>
           <div class="flex justify-center mt-12">
-            <button  @click="showModal" class="px-6 py-4 w-60 bg-blue-800 text-white rounded">Place Order</button>
+            <button  @click="createNewOrder" class="px-6 py-4 w-60 bg-blue-800 text-white rounded">Place Order</button>
           </div>
         </div>
         <p v-else class="text-gray-500">No vouchers selected</p>

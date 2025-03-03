@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import {
   FwbTable,
   FwbTableBody,
@@ -9,9 +9,23 @@ import {
   FwbTableRow,
 } from "flowbite-vue";
 
-import orders from "../data/order_list.json";
+import ordersData from "../data/order_list.json";
 import { RouterLink } from "vue-router";
 import { formatDate, formatNumber } from "@/helper/formatHelper";
+
+const orders = ref([]);
+
+// Load orders from LocalStorage or fallback to JSON file
+onMounted(() => {
+  const savedOrders = localStorage.getItem("orders");
+  if (savedOrders) {
+    orders.value = JSON.parse(savedOrders)
+  } else {
+    localStorage.setItem("orders", JSON.stringify(ordersData));
+    orders.value = ordersData;
+  }
+  // orders.value = savedOrders ? JSON.parse(savedOrders) : ordersData;
+});
 
 // Reactive values for user input
 const tempOrderId = ref("");
@@ -42,7 +56,7 @@ const resetFilters = () => {
 
 // Computed property for filtered orders
 const filteredOrders = computed(() => {
-  return orders.filter((order) => {
+  return orders.value.filter((order) => {
     return (
       (orderIdFilter.value === "" || order.order_id.includes(orderIdFilter.value)) &&
       (statusFilter.value === "" || order.status === statusFilter.value) &&
