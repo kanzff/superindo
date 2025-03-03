@@ -11,6 +11,7 @@ import {
 
 import orders from "../data/order_list.json";
 import { RouterLink } from "vue-router";
+import { formatDate, formatNumber } from "@/helper/formatHelper";
 
 // Reactive values for user input
 const tempOrderId = ref("");
@@ -102,8 +103,8 @@ const filteredOrders = computed(() => {
             <fwb-table-row v-for="order in filteredOrders" :key="order.order_id">
               <fwb-table-cell>{{ order.status }}</fwb-table-cell>
               <fwb-table-cell class="text-slate-800 font-semibold">{{ order.order_id }}</fwb-table-cell>
-              <fwb-table-cell class="text-slate-800 font-semibold">{{ order.order_date }}</fwb-table-cell>
-              <fwb-table-cell class="text-slate-800 font-semibold">{{ order.total }}</fwb-table-cell>
+              <fwb-table-cell class="text-slate-800 font-semibold">{{ formatDate(order.order_date) }}</fwb-table-cell>
+              <fwb-table-cell class="text-slate-800 font-semibold">Rp {{ formatNumber(order.total) }},-</fwb-table-cell>
             </fwb-table-row>
           </fwb-table-body>
         </fwb-table>
