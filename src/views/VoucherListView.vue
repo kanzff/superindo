@@ -8,28 +8,24 @@ import {
 import vouchersData from "../data/voucher_list.json";
 import { formatNumber } from "@/helper/formatHelper";
 import { RouterLink } from "vue-router";
+import router from "@/router";
 
-// Reactive state for vouchers with quantity
 const vouchers = ref(vouchersData.map(voucher => ({ ...voucher, quantity: 0 })));
 
-// Function to increase quantity
 const increaseQuantity = (voucher) => {
   voucher.quantity++;
 };
 
-// Function to decrease quantity (min 0)
 const decreaseQuantity = (voucher) => {
   if (voucher.quantity > 0) {
     voucher.quantity--;
   }
 };
 
-// Computed property to get selected vouchers
 const selectedVouchers = computed(() => {
   return vouchers.value.filter(voucher => voucher.quantity > 0);
 });
 
-// Computed property to get total price
 const totalPrice = computed(() => {
   return selectedVouchers.value.reduce((sum, voucher) => sum + (voucher.denom * voucher.quantity), 0);
 });
@@ -38,39 +34,32 @@ const isShowModal = ref(false)
 
 function closeModal () {
   isShowModal.value = false
+  router.push('/')
 }
 function showModal () {
   isShowModal.value = true
 }
 
 const createNewOrder = () => {
-  // Load existing orders from localStorage
   const savedOrders = localStorage.getItem("orders");
-  console.log('ini saved', savedOrders)
   const orders = savedOrders ? JSON.parse(savedOrders) : [];
-  console.log('ini ord', orders)
 
 
-  // Get the last order ID and increment
   const lastOrder = orders.length ? orders[orders.length - 1] : null;
   const lastOrderId = lastOrder ? parseInt(lastOrder.order_id.replace("BLK0", "")) : 0;
   const newOrderId = `BLK0${lastOrderId + 1}`;
 
-  // Create new order object
   const newOrder = {
     order_id: newOrderId,
     status: "Waiting For Payment",
     order_date: new Date(),
-    total: totalPrice.value, // Computed total price
+    total: totalPrice.value, 
   };
 
-  // Add new order to the list
   orders.push(newOrder);
 
-  // Save updated orders to LocalStorage
   localStorage.setItem("orders", JSON.stringify(orders));
 
-  // Show confirmation modal
   showModal();
 };
 

@@ -15,7 +15,6 @@ import { formatDate, formatNumber } from "@/helper/formatHelper";
 
 const orders = ref([]);
 
-// Load orders from LocalStorage or fallback to JSON file
 onMounted(() => {
   const savedOrders = localStorage.getItem("orders");
   if (savedOrders) {
@@ -24,27 +23,22 @@ onMounted(() => {
     localStorage.setItem("orders", JSON.stringify(ordersData));
     orders.value = ordersData;
   }
-  // orders.value = savedOrders ? JSON.parse(savedOrders) : ordersData;
 });
 
-// Reactive values for user input
 const tempOrderId = ref("");
-const tempStatus = ref(""); // Default empty (not filtering initially)
+const tempStatus = ref(""); 
 const tempDate = ref("");
 
-// Reactive values for applied filters
 const orderIdFilter = ref("");
 const statusFilter = ref("");
 const dateFilter = ref("");
 
-// Apply function - updates the actual filters
 const applyFilters = () => {
   orderIdFilter.value = tempOrderId.value;
   statusFilter.value = tempStatus.value;
   dateFilter.value = tempDate.value;
 };
 
-// Reset function - clears all filters
 const resetFilters = () => {
   tempOrderId.value = "";
   tempStatus.value = "";
@@ -54,7 +48,6 @@ const resetFilters = () => {
   dateFilter.value = "";
 };
 
-// Computed property for filtered orders
 const filteredOrders = computed(() => {
   return orders.value.filter((order) => {
     return (
